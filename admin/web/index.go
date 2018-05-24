@@ -11,7 +11,7 @@ var App *ginApp.GinApp
 
 func Init()  {
     App = ginApp.Instance()
-    App.Engine().Static("../public", "")
+    App.Engine().Static("/public", "../public")
     htmlDir := filepath.Join("", "./views/**/*")
     fmt.Printf("htmlDir:%s\n", htmlDir)
     App.Engine().LoadHTMLGlob(htmlDir)

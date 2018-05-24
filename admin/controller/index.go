@@ -23,6 +23,7 @@ func init()  {
     })
 
     indexInstace.Get("/", indexInstace.index)
+    //indexInstace.Get("/index", indexInstace.index)
 }
 
 func (c *indexController)index(context *gin.Context)  {

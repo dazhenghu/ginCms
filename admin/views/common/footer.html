@@ -1,4 +1,40 @@
 {{define "common/footer.html"}}
 </body>
+<!-- ./wrapper -->
+
+<!-- jQuery 3 -->
+<script src="/public/libs/jquery/jquery.min.js"></script>
+<!-- Bootstrap 3.3.7 -->
+<script src="/public/libs/bootstrap/js/bootstrap.min.js"></script>
+<!-- FastClick --
+<script src="bower_components/fastclick/lib/fastclick.js"></script>-->
+<!-- AdminLTE App -->
+<script src="/public/libs/AdminLTE/js/adminlte.min.js"></script>
+<!-- Sparkline --
+<script src="bower_components/jquery-sparkline/dist/jquery.sparkline.min.js"></script>-->
+<!-- SlimScroll --
+<script src="bower_components/jquery-slimscroll/jquery.slimscroll.min.js"></script>-->
+<!-- ChartJS --
+<script src="bower_components/Chart.js/Chart.js"></script>-->
+<!-- AdminLTE dashboard demo (This is only for demo purposes) --
+<script src="/public/libs/AdminLTE/js/pages/dashboard2.js"></script>-->
+<!-- AdminLTE for demo purposes -->
+<script src="/public/libs/AdminLTE/js/demo.js"></script>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $(".readcomment").on("click",function(e){
+            $.post($(e.target).data("href"),{},function(result){
+                window.location.href = $(e.target).data("redirect");
+            },'json');
+        });
+
+        $(".readall").on("click",function (e) {
+            $.post("/admin/read_all",{},function(result){
+                window.location.href = window.location.href;
+            },"json");
+        });
+    });
+</script>
 </html>
 {{end}}
