@@ -15,6 +15,7 @@
 
 # Gogland directory
 /.idea/
+.idea
 
 # Output of project
 *.db

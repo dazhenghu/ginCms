@@ -1,0 +1,5 @@
+addr:8080
+public:public
+db:
+  type:mysql
+  dsn:root:qsqfrms@tcp(127.0.0.1:3306)/test?charset=utf8&parseTime=True&loc=Local

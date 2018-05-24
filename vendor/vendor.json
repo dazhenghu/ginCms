@@ -3,16 +3,16 @@
 	"ignore": "test",
 	"package": [
 		{
-			"checksumSHA1": "WG6ppfO+iMmOjoipTdg4Ta3Ddbk=",
+			"checksumSHA1": "FQGRrprl/M2YDVtItlzsN+oKRgs=",
 			"path": "github.com/dazhenghu/ginApp",
-			"revision": "fab87d006cb8b1f663daf1a0961de48e6270dd41",
-			"revisionTime": "2018-05-20T14:31:33Z"
+			"revision": "971b9d75eb0d870b27b8db9bcf0b611e560cab4a",
+			"revisionTime": "2018-05-24T16:11:58Z"
 		},
 		{
-			"checksumSHA1": "0LZppBFykg7cdeO2Vb2IzplyQXY=",
+			"checksumSHA1": "RPRDcmC2g/xcRBvKtdEk5gV+i1A=",
 			"path": "github.com/dazhenghu/ginApp/controller",
-			"revision": "fab87d006cb8b1f663daf1a0961de48e6270dd41",
-			"revisionTime": "2018-05-20T14:31:33Z"
+			"revision": "971b9d75eb0d870b27b8db9bcf0b611e560cab4a",
+			"revisionTime": "2018-05-24T16:11:58Z"
 		},
 		{
 			"checksumSHA1": "QeKwBtN2df+j+4stw3bQJ6yO4EY=",
@@ -81,5 +81,5 @@
 			"revisionTime": "2018-03-28T19:50:20Z"
 		}
 	],
-	"rootPath": "github.com/dazhenghu/cms"
+	"rootPath": "github.com/dazhenghu/ginCms"
 }
