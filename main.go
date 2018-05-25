@@ -111,7 +111,6 @@ func main() {
 	db, err := gorm.Open("mysql", "root:qsqfrms@tcp(127.0.0.1:3306)/test?charset=utf8&parseTime=True&loc=Local")
 	defer db.Close()
 	fmt.Printf("db:%+v\n", db)
-	migrate.InitSelf(db)
 
 	flag.String("d", "", "dd")
 
@@ -119,24 +118,7 @@ func main() {
 	cmd := flag.Arg(0)
 	fmt.Println("cmd:"+cmd)
 
-	migrateObj := migrate.New(db, "./migration")
-	if cmd == "migrate" {
-		//fmt.Println("请输入您的文件名:")
-		var fileName string
-		fmt.Scanln(&fileName)
 
-		fmt.Println("将使用如下命名文件:" + migrate.GenerateMigrationFileName(fileName)+"(y|n)")
-
-		var yn string
-		fmt.Scanln(&yn)
-
-		fmt.Println("选择的结果为：" + yn)
-		migrateObj.CreateMigrationFile()
-	} else if cmd == "exec" {
-
-		err = migrateObj.ExecUp()
-		fmt.Printf("end err:%+v", err)
-	}
 
 	//migrateInstance := migrate.New(db, "./migration")
 	//err = migrateInstance.ExecUp()
