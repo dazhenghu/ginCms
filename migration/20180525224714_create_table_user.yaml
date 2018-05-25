@@ -1,0 +1,18 @@
+dbindex: ""
+up:
+ - create table `user` (
+     user_id int(11) unsigned NOT NULL AUTO_INCREMENT COMMENT 'id',
+     user_name varchar(64) NOT NULL COMMENT '用户名',
+     user_password varchar(64) NOT NULL COMMENT '用户密码',
+     user_alias_name varchar(64) NOT NULL COMMENT '用户昵称',
+     user_mail varchar(128) NOT NULL COMMENT '用户邮箱',
+     user_fullname varchar(64) NOT NULL DEFAULT '' COMMENT '用户全称',
+     user_avatar varchar(256) NOT NULL DEFAULT '' COMMENT '用户头像地址',
+     user_status tinyint(3) NOT NULL DEFAULT 0 COMMENT '1:正常；2:封禁',
+     user_is_delete tinyint(1) NOT NULL DEFAULT 0 COMMENT '0:未删除；1：已删除',
+     PRIMARY KEY (user_id),
+     UNIQUE KEY (user_name),
+     UNIQUE KEY (user_alias_name),
+     UNIQUE KEY (user_mail)
+   ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='用户表';
+down: []
