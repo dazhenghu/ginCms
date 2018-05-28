@@ -1,0 +1,14 @@
+dbindex: ""
+up:
+ - create table post_cate_post (
+     post_cate_post_id int(11) unsigned NOT NULL AUTO_INCREMENT COMMENT 'id',
+     post_cate_post_post_id int(11) unsigned NOT NULL COMMENT '文章id',
+     post_cate_post_post_cate_id int(11) unsigned NOT NULL COMMENT '分类id',
+     post_cate_post_create_at datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+     post_cate_post_update_at timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '修改时间',
+     delete_at datetime DEFAULT NULL COMMENT '删除时间',
+     PRIMARY KEY (post_cate_post_id),
+     KEY idx_post_id (post_cate_post_post_id),
+     KEY idx_post_cate_id (post_cate_post_post_cate_id)
+   ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='文章与分类关联表';
+down: []
