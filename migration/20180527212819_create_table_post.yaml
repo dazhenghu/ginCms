@@ -1,17 +1,20 @@
 dbindex: ""
 up:
-  - create table post (
-      post_id int(11) unsigned NOT NULL AUTO_INCREMENT COMMENT 'id',
-      post_title varchar(64) NOT NULL COMMENT '文章标题',
-      post_key varchar(128) NOT NULL DEFAULT '' COMMENT '关键字，逗号分割',
-      post_content text COMMENT '资产拆分费率',
-      post_create_user_id int(11) unsigned NOT NULL DEFAULT 0 COMMENT '创建者id',
-      post_create_user_name varchar(64) NOT NULL DEFAULT '' COMMENT '创建者姓名',
-      post_update_user_id int(11) unsigned NOT NULL DEFAULT 0 COMMENT '更新者id',
-      post_update_user_name varchar(64) NOT NULL DEFAULT '' COMMENT '更新者姓名',
-      post_create_at datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
-      post_update_at timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '修改时间',
-      PRIMARY KEY (post_id),
-      KEY idx_create_at (post_create_at)
+  - CREATE TABLE `post` (
+      `post_id` int(11) unsigned NOT NULL AUTO_INCREMENT COMMENT 'id',
+      `post_title` varchar(64) NOT NULL COMMENT '文章标题',
+      `post_key` varchar(128) NOT NULL DEFAULT '' COMMENT '关键字，逗号分割',
+      `post_content` text COMMENT '文章正文',
+      `post_status` tinyint(3) NOT NULL DEFAULT 0 COMMENT '0:审核中；1:审核通过；2:审核拒绝',
+      `post_status_des` varchar(64) NOT NULL DEFAULT '' COMMENT '状态描述',
+      `post_create_user_id` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '创建者id',
+      `post_create_user_name` varchar(64) NOT NULL DEFAULT '' COMMENT '创建者姓名',
+      `post_update_user_id` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '更新者id',
+      `post_update_user_name` varchar(64) NOT NULL DEFAULT '' COMMENT '更新者姓名',
+      `post_create_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+      `post_update_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '修改时间',
+      `delete_at` datetime DEFAULT null COMMENT '删除时间',
+      PRIMARY KEY (`post_id`),
+      KEY `idx_create_at` (`post_create_at`)
     ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='文章表';
 down: []

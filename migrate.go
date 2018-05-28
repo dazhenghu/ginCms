@@ -32,8 +32,6 @@ func init()  {
     if err != nil {
         panic(err)
     }
-
-    fmt.Printf("main-local dbconfigs:%+v\n", dbconfigs)
 }
 
 func main()  {
@@ -61,10 +59,6 @@ func up()  {
             Dsn:dbconfig.Dsn,
         }
     }
-
-    fmt.Printf("main-local dbconfigs:%+v\n", dbconfigs)
-    fmt.Printf("migrateDbConfs:%+v\n", migrateDbConfs)
-    //return
 
     // 创建执行migrate操作的对象，第二个参数显示指定migration文件所在路径
     migrateObj := migrate.New(migrationPath, migrateDbConfs)

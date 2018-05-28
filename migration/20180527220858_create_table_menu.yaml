@@ -1,0 +1,15 @@
+dbindex: ""
+up:
+  - CREATE TABLE `menu` (
+      `menu_id` int(11) NOT NULL AUTO_INCREMENT,
+      `menu_name` varchar(128) NOT NULL COMMENT '菜单名',
+      `menu_parent_id` int(11) NOT NULL DEFAULT '0' COMMENT '菜单父级菜单',
+      `menu_route` varchar(256) NOT NULL DEFAULT '' COMMENT '路由',
+      `menu_order` int(11) NOT NULL DEFAULT '0' COMMENT '菜单排序编号',
+      `menu_data` varchar(200) NOT NULL DEFAULT '' COMMENT '扩展数据',
+      `menu_create_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+      `menu_updte_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '修改时间',
+      PRIMARY KEY (`menu_id`),
+      KEY `idx_parent` (`menu_parent_id`)
+    ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='菜单表';
+down: []
