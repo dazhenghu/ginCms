@@ -4,6 +4,7 @@ import "time"
 
 type Menu struct {
     MenuId int64 `gorm:"column:menu_id" json:"menu_id" form:"menu_id"`
+    MenuType string `gorm:"column:menu_type" json:"menu_type" form:"menu_type"`
     MenuName string `gorm:"column:menu_name" json:"menu_name" form:"menu_name"`
     MenuParentId int64 `gorm:"column:menu_parent_id" json:"menu_parent_id" form:"menu_parent_id"`
     MenuRoute string `gorm:"column:menu_route" json:"menu_route" form:"menu_route"`

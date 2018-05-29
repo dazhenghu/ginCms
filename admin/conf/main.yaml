@@ -1,0 +1,5 @@
+addr: ':8002'
+public:
+  relativePath: '/public'
+  root: '../public'
+viewBaseDir: './views/**/*'
