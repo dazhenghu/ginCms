@@ -1,20 +1,5 @@
 {{define "index/index.html"}}
-{{template "common/header.html"}}
-{{template "common/navbar.html" .}}
-{{template "common/sidebar.html" .}}
-<div class="content-wrapper">
-    <!-- Content Header (Page header) -->
-    <section class="content-header">
-        <h1>
-            Dashboard
-            <small>Version 2.0</small>
-        </h1>
-        <ol class="breadcrumb">
-            <li><a href="/admin/index"><i class="fa fa-dashboard"></i> Home</a></li>
-            <li class="active">Dashboard</li>
-        </ol>
-    </section>
-
+{{template "common/frame-top.html" .}}
     <!-- Main content -->
     <section class="content">
         <!-- Info boxes -->
@@ -24,8 +9,8 @@
                     <span class="info-box-icon bg-aqua"><i class="ion ion-ios-paper-outline"></i></span>
 
                     <div class="info-box-content">
-                        <span class="info-box-text">博文</span>
-                        <span class="info-box-number">1</span>
+                        <span class="info-box-text">博文{{.title}}</span>
+                        <span class="info-box-number">12</span>
                     </div>
                     <!-- /.info-box-content -->
                 </div>
@@ -82,5 +67,5 @@
     </section>
     <!-- /.content -->
 </div>
-{{template "common/footer.html"}}
+{{template "common/frame-bottom.html"}}
 {{end}}

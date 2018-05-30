@@ -4,7 +4,6 @@ import (
     "github.com/dazhenghu/ginApp/controller"
     "sync"
     "github.com/gin-gonic/gin"
-
     "github.com/dazhenghu/util/dhutil"
     "net/http"
 )
@@ -29,6 +28,7 @@ func init()  {
 func (c *indexController)index(context *gin.Context)  {
     beginTime := dhutil.CurrTimeFormat(dhutil.TIME_FORMAT_MIDDLE_SPLIT)
     context.HTML(http.StatusOK, "index/index.html", gin.H{
+        "pageTitle": "GINCMS-后台首页",
         "beginTime": beginTime,
         "endTime": dhutil.CurrTimeFormat(dhutil.TIME_FORMAT_MIDDLE_SPLIT),
     })

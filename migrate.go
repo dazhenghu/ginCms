@@ -22,7 +22,7 @@ func init()  {
     migrationPath = "./migration"
 
     // 读取配置文件
-    configFile, err := ioutil.ReadFile("./common/config/main-local.yaml")
+    configFile, err := ioutil.ReadFile("./common/config/main.yaml")
     if err != nil {
         panic(fmt.Sprintf("migrate init err:%+v\n", err))
     }

@@ -1,0 +1,17 @@
+{{define "common/frame-top.html"}}
+{{template "common/header-top.html" .}}
+{{template "common/header-bottom.html"}}
+{{template "common/navbar.html" .}}
+{{template "common/sidebar.html" .}}
+<div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+        <h1>
+        {{.pageTitle}}
+        </h1>
+        <ol class="breadcrumb">
+            <li><a href="/"><i class="fa fa-dashboard"></i> Home</a></li>
+            <li class="active">面板</li>
+        </ol>
+    </section>
+{{end}}

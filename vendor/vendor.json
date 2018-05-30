@@ -3,22 +3,22 @@
 	"ignore": "test",
 	"package": [
 		{
-			"checksumSHA1": "nbxmADjMO69+Paqk1+HMJnQo7tc=",
+			"checksumSHA1": "KO1dYlNEwPfYd/9ILSJWyv2RsSU=",
 			"path": "github.com/dazhenghu/ginApp",
-			"revision": "33813bc17c7508377b8211f564206681b0b37b49",
-			"revisionTime": "2018-05-29T17:30:12Z"
+			"revision": "34ac90c7efe0cf8672dc400af4e7ab5c6350e133",
+			"revisionTime": "2018-05-29T17:51:17Z"
 		},
 		{
 			"checksumSHA1": "ONxt7JHJ9QwqldHlW+GQz9l/Oro=",
 			"path": "github.com/dazhenghu/ginApp/config",
-			"revision": "0e919e9e135fce9e1164c209d42e745e351194f8",
-			"revisionTime": "2018-05-29T17:01:26Z"
+			"revision": "34ac90c7efe0cf8672dc400af4e7ab5c6350e133",
+			"revisionTime": "2018-05-29T17:51:17Z"
 		},
 		{
 			"checksumSHA1": "RPRDcmC2g/xcRBvKtdEk5gV+i1A=",
 			"path": "github.com/dazhenghu/ginApp/controller",
-			"revision": "0e919e9e135fce9e1164c209d42e745e351194f8",
-			"revisionTime": "2018-05-29T17:01:26Z"
+			"revision": "34ac90c7efe0cf8672dc400af4e7ab5c6350e133",
+			"revisionTime": "2018-05-29T17:51:17Z"
 		},
 		{
 			"checksumSHA1": "QeKwBtN2df+j+4stw3bQJ6yO4EY=",
