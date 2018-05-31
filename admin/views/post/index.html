@@ -1,0 +1,14 @@
+{{define "post/index.html"}}
+{{template "common/frame-top.html" .}}
+<!-- Main content -->
+<section class="content">
+    <form action="/post/save" method="post">
+        <div class="row">
+            <div class="col-md-12 col-sm-12 col-xs-12">
+                <input class="form-control" type="text" name="post_title" placeholder="标题">
+            </div>
+        </div>
+    </form>
+</section>
+{{template "common/frame-bottom.html"}}
+{{end}}}

@@ -1,4 +1,4 @@
-package servies
+package service
 
 import "github.com/dazhenghu/ginCms/common/model"
 

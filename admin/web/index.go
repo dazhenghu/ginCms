@@ -6,6 +6,7 @@ import (
     "path/filepath"
     "github.com/dazhenghu/util/fileutil"
     "path"
+    "github.com/dazhenghu/ginCms/common/service"
 )
 
 var App *ginApp.GinApp
@@ -26,6 +27,9 @@ func Run()  {
     // 加载html
     htmlDir := filepath.Join(currPath, App.AppConfig.ViewBaseDir)
     App.Engine().LoadHTMLGlob(htmlDir)
+
+    // service层初始化
+    service.Init(App.AppConfig.Dblist)
 
     addr := App.AppConfig.Addr
     if addr == "" {
