@@ -41,10 +41,12 @@ func (post *postController) save(context *gin.Context)  {
             fmt.Printf("post id:%+v\n", post)
             // 显示操作页面
             context.HTML(http.StatusOK, "post/save.html", gin.H{
+                "pageTitle": "文章修改",
                 "post":post,
             })
         }
         context.HTML(http.StatusOK, "post/save.html", gin.H{
+            "pageTitle": "文章添加",
         })
     }
 }

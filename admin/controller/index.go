@@ -22,6 +22,7 @@ func init()  {
 }
 
 func (c *indexController)index(context *gin.Context)  {
+
     beginTime := dhutil.CurrTimeFormat(dhutil.TIME_FORMAT_MIDDLE_SPLIT)
     context.HTML(http.StatusOK, "index/index.html", gin.H{
         "pageTitle": "GINCMS-后台首页",
