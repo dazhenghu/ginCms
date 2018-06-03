@@ -17,14 +17,15 @@ type ueditorController struct {
 var ueditorInstance *ueditorController
 var uedService *gueditor.Service
 
-func init()  {
+func init() {
     ueditorInstance = &ueditorController{}
     ueditorInstance.Init(ueditorInstance)
 
     syscall.Umask(0)
-    rootPath, _ := fileutil.GetCurrentDirectory()
+    rootPath, _    := fileutil.GetCurrentDirectory()
     configFilePath := filepath.Join(rootPath, "config/ueditor.json") // 设置自定义配置文件路径
-    rootPath = filepath.Join(rootPath, "../") // 设置项目根目录
+
+    rootPath      = filepath.Join(rootPath, "../") // 设置项目根目录
     uedService, _ = gueditor.NewService(nil, nil, rootPath, configFilePath)
 
     ueditorInstance.PostAndGet("/ueditor", ueditorInstance.index)
@@ -38,6 +39,10 @@ func (ued *ueditorController) index(context *gin.Context) {
         ued.config(context)
     case "uploadimage":
         ued.uploadImage(context)
+    case "uploadscrawl":
+        ued.uploadScrawl(context)
+    case "uploadvideo":
+        ued.uploadVideo(context)
     }
 
 }
@@ -47,7 +52,17 @@ func (ued *ueditorController) config(context *gin.Context) {
     context.JSON(http.StatusOK, cnf)
 }
 
-func (ued *ueditorController) uploadImage(context *gin.Context)  {
+func (ued *ueditorController) uploadImage(context *gin.Context) {
     res, _ := uedService.Uploadimage(context.Request)
+    context.JSON(http.StatusOK, res)
+}
+
+func (ued *ueditorController) uploadScrawl(context *gin.Context)  {
+    res, _ := uedService.UploadScrawl(context.Request)
+    context.JSON(http.StatusOK, res)
+}
+
+func (ued *ueditorController) uploadVideo(context *gin.Context)  {
+    res, _ := uedService.UploadVideo(context.Request)
     context.JSON(http.StatusOK, res)
 }
