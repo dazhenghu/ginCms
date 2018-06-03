@@ -1,0 +1,10 @@
+{
+  "imagePathFormat": "/public/ueditor/golang/upload/image/{yyyy}{mm}{dd}/{time}{rand:6}",
+  "scrawlPathFormat": "/public/ueditor/golang/upload/image/{yyyy}{mm}{dd}/{time}{rand:6}",
+  "snapscreenPathFormat": "/public/ueditor/golang/upload/image/{yyyy}{mm}{dd}/{time}{rand:6}",
+  "catcherPathFormat": "/public/ueditor/golang/upload/image/{yyyy}{mm}{dd}/{time}{rand:6}",
+  "videoPathFormat": "/public/ueditor/golang/upload/video/{yyyy}{mm}{dd}/{time}{rand:6}",
+  "filePathFormat": "/public/ueditor/golang/upload/file/{yyyy}{mm}{dd}/{time}{rand:6}",
+  "imageManagerListPath": "/public/ueditor/golang/upload/image/",
+  "fileManagerListPath": "/public/ueditor/golang/upload/file/"
+}
