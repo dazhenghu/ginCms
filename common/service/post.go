@@ -2,7 +2,6 @@ package service
 
 import (
     "github.com/dazhenghu/ginCms/common/model"
-    "fmt"
 )
 
 type post struct {
@@ -20,9 +19,7 @@ func init()  {
  */
 func (p *post) FindPostById(postId string) (post *model.Post) {
     post = &model.Post{}
-    fmt.Printf("db:%+v dbconfiglist:%+v\n", db, dbConfigList)
-    db.Where("post_id = ?", postId).Find(post)
-    //db.Model(post).Where("post_id = ?", postId).Row()
+    db.Table("post").Where("post_id = ?", postId).Find(post)
     return
 }
 
