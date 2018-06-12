@@ -1,4 +1,20 @@
 {{define "common/frame-bottom.html"}}
 </div>
+<div class="modal loading-modal" id="loading-modal" tabindex="-1" role="dialog" aria-hidden="true"
+     data-backdrop="static" keyboard="false">
+    <div class="modal_wrapper">
+        <div class="modal-dialog">
+            <div class="modal-body">
+                <div class="sk-wave">
+                    <div class="sk-rect sk-rect1"></div>
+                    <div class="sk-rect sk-rect2"></div>
+                    <div class="sk-rect sk-rect3"></div>
+                    <div class="sk-rect sk-rect4"></div>
+                    <div class="sk-rect sk-rect5"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 {{template "common/footer.html"}}
 {{end}}

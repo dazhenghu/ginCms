@@ -2,18 +2,22 @@
 {{template "common/frame-top.html" .}}
 <!-- Main content -->
 <section class="content">
-    <form action="/post/save" method="post">
-        <div class="row">
-            <div class="col-md-6 col-sm-6 col-xs-6">
-                <input class="form-control" type="text" name="post_title" placeholder="标题">
-            </div>
-        </div>
+    <form id="post-save" action="" method="post">
         <div class="row">
             <div class="col-md-8 col-sm-12 col-xs-12">
-                <!-- 加载编辑器的容器 -->
-                <script id="container" name="content" type="text/plain">
-                    这里写你的初始化内容
-                </script>
+                <div class="form-group form-group-space">
+                    <input class="form-control" type="text" name="post_title" placeholder="标题" value="{{ .post.PostTitle }}">
+
+                    <input class="form-control" type="text" name="post_key" placeholder="关键字，逗号分割" value="{{ .post.PostKey }}">
+                    {{ .post.PostContent }}
+                    <!-- 加载编辑器的容器 -->
+                    <script id="container" name="post_content" type="text/plain">
+                        {{ .post.PostContent | unescape2 }}
+                    </script>
+                </div>
+                <div class="form-group">
+                    <button id="submit" class="btn btn-primary pull-right" type="button">提交</button>
+                </div>
             </div>
         </div>
     </form>
@@ -21,9 +25,34 @@
 <script type="text/javascript" src="/public/libs/ueditor/ueditor.config.js"></script>
 <!-- 编辑器源码文件 -->
 <script type="text/javascript" src="/public/libs/ueditor/ueditor.all.min.js"></script>
-<!-- 实例化编辑器 -->
+{{template "common/frame-bottom.html"}}
 <script type="text/javascript">
     var editor = UE.getEditor('container');
+    $("#submit").click(function () {
+        var data = {};
+        data.post_title = $("input[name='post_title']").val();
+        data.post_key = $("input[name='post_key']").val();
+        data.post_content = editor.getContent();
+        if (!data.post_title) {
+            toastWarning("标题不能为空");
+            return;
+        }
+
+        if (!data.post_key) {
+            toastWarning("关键字不能为空");
+            return;
+        }
+
+        if (!data.post_content) {
+            toastWarning("内容不能为空");
+            return;
+        }
+
+        $('.loading-modal').modal('show');
+        $.post("/post/save", data, function (res) {
+            
+        });
+    })
 </script>
-{{template "common/frame-bottom.html"}}
+{{template "common/frame-end.html"}}
 {{end}}}

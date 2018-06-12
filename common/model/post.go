@@ -3,6 +3,12 @@ package model
 import "time"
 import "github.com/dazhenghu/ginApp/model"
 
+const (
+    POST_STATUS_EXAMING int64 = 0 // 审核中
+    POST_STATUS_PASS    int64 = 1 // 审核通过
+    POST_STATUS_REJECT  int64 = 2 // 审核拒绝
+)
+
 type Post struct {
     model.BaseModel
     PostId int64 `gorm:"column:post_id" json:"post_id" form:"post_id"`

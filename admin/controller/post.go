@@ -30,7 +30,31 @@ func (post *postController) index(context *gin.Context)  {
 
 func (post *postController) save(context *gin.Context)  {
     if context.Request.Method == http.MethodPost {
-        // 保存或更新文章
+        postId := context.PostForm("post_id")
+
+        if postId != "" {
+            // 保存或更新文章
+            ok := service.Post.AddPost(
+                context.PostForm("post_title"),
+                context.PostForm("post_key"),
+                context.PostForm("post_content"),
+            )
+
+            if ok {
+                context.JSON(http.StatusOK, map[string]string {
+                    "code":"success",
+                    "message":"成功",
+                })
+            } else {
+                context.JSON(http.StatusOK, map[string]string{
+                    "code":"error",
+                    "message":"失败",
+                })
+            }
+        } else {
+
+        }
+
     } else {
         postId, _ := context.GetQuery("post_id")
         if postId != "" {

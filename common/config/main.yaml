@@ -2,3 +2,10 @@ dblist:
   db:
     type: 'mysql'
     dsn: 'root:qsqfrms@tcp(127.0.0.1:3306)/gincms?charset=utf8&parseTime=True&loc=Local'
+session:
+  type: 'redis'
+  config:
+    size: 10
+    network: 'tcp'
+    adress: 'localhost:6379'
+    password:

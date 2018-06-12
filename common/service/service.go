@@ -22,6 +22,7 @@ func init()  {
             panic(err)
         }
         db = defaultDb
+        db.SingularTable(true) // 全局禁用表名复数
     } else {
         panic(errors.New("default db is null"))
     }
