@@ -4,6 +4,8 @@ import (
     "github.com/dazhenghu/ginCms/common/model"
 )
 
+const POST_TOKEN_KEY string = "post_token_key" // 添加post时保存在session中的token键名
+
 type post struct {
 
 }

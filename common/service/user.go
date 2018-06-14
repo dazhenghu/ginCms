@@ -2,11 +2,7 @@ package service
 
 import (
     "github.com/dazhenghu/ginCms/common/model"
-    "github.com/dazhenghu/ginCms/admin/web"
     "github.com/dazhenghu/util/encryptutil"
-    "crypto/md5"
-    "encoding/hex"
-    "strings"
     "errors"
 )
 
@@ -24,17 +20,29 @@ func (u *user) NewUser() *model.User  {
     return &model.User{}
 }
 
-func (u *user) Register(userObj *model.User)  {
+/**
+用户注册
+ */
+func (u *user) Register(userObj *model.User) (registerResult bool, err error) {
 
-
-
+    if err = userObj.IsValid(); err != nil {
+        return
+    }
+    // 生成盐
     salt := encryptutil.GenerateSalt()
+    userObj.UserSalt = salt
+    // 密码加密
     pswdEncrypt := encryptutil.EncryptWithSalt(userObj.UserPassword, salt)
     userObj.UserPassword = pswdEncrypt
-    userObj.UserSalt = salt
 
+    err = db.Create(userObj).Error
+    registerResult = db.NewRecord(userObj)
+    return
 }
 
+/**
+用户登录
+ */
 func (u *user) Login(account, plainPassword string) (userObj *model.User, err error)  {
     userObj = &model.User{}
     db.Where("user_name = ?", account).Find(userObj)

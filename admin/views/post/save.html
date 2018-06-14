@@ -6,10 +6,10 @@
         <div class="row">
             <div class="col-md-8 col-sm-12 col-xs-12">
                 <div class="form-group form-group-space">
+                    <input type="hidden" name="token" value="{{ .token }}">
+                    <input type="hidden" name="post_id" value="{{ .post.PostId }}">
                     <input class="form-control" type="text" name="post_title" placeholder="标题" value="{{ .post.PostTitle }}">
-
                     <input class="form-control" type="text" name="post_key" placeholder="关键字，逗号分割" value="{{ .post.PostKey }}">
-                    {{ .post.PostContent }}
                     <!-- 加载编辑器的容器 -->
                     <script id="container" name="post_content" type="text/plain">
                         {{ .post.PostContent | unescape2 }}
@@ -30,9 +30,11 @@
     var editor = UE.getEditor('container');
     $("#submit").click(function () {
         var data = {};
+        data.post_id = $("input[name='post_id']").val();
         data.post_title = $("input[name='post_title']").val();
         data.post_key = $("input[name='post_key']").val();
         data.post_content = editor.getContent();
+        data.token = $("input[name='token']").val();
         if (!data.post_title) {
             toastWarning("标题不能为空");
             return;
