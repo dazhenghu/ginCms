@@ -52,7 +52,14 @@
 
         $('.loading-modal').modal('show');
         $.post("/post/save", data, function (res) {
-            
+            $('.loading-modal').modal('hide');
+            $("input[name='token']").val(res.token);
+            if (res.code == "success") {
+                toastInfo(res.message)
+            } else {
+                toastWarning(res.message)
+            }
+
         });
     })
 </script>

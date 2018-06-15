@@ -40,10 +40,12 @@ func (post *postController) save(context *gin.Context)  {
         if tokenErr != nil {
             context.JSON(http.StatusOK, map[string]string {
                 "code":"error",
-                "message":tokenErr.Error(),
+                "message":"令牌已过期，请刷新重试",
             })
             return
         }
+
+        postToken, _ := session.GenerateSessionToken(context, service.POST_TOKEN_KEY)
 
         if postId != "" {
             // 更新文章
@@ -52,11 +54,13 @@ func (post *postController) save(context *gin.Context)  {
                 context.JSON(http.StatusOK, map[string]string{
                     "code":consts.ERROR,
                     "message":updateErr.Error(),
+                    "token":postToken,
                 })
             } else {
                 context.JSON(http.StatusOK, map[string]string{
                     "code":consts.SUCCESS,
                     "message":"更新成功",
+                    "token":postToken,
                 })
             }
         } else {
@@ -71,11 +75,13 @@ func (post *postController) save(context *gin.Context)  {
                 context.JSON(http.StatusOK, map[string]string {
                     "code":consts.SUCCESS,
                     "message":"成功",
+                    "token":postToken,
                 })
             } else {
                 context.JSON(http.StatusOK, map[string]string{
                     "code":consts.ERROR,
                     "message":"失败",
+                    "token":postToken,
                 })
             }
         }
