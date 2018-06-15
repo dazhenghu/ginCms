@@ -7,6 +7,7 @@ import (
     "github.com/dazhenghu/ginCms/common/service"
     "github.com/dazhenghu/ginApp/session"
     "github.com/gin-contrib/sessions"
+    "github.com/dazhenghu/ginCms/common/consts"
 )
 
 type postController struct {
@@ -46,6 +47,18 @@ func (post *postController) save(context *gin.Context)  {
 
         if postId != "" {
             // 更新文章
+            updateErr := service.Post.UpdateFromForm(context)
+            if updateErr != nil {
+                context.JSON(http.StatusOK, map[string]string{
+                    "code":consts.ERROR,
+                    "message":updateErr.Error(),
+                })
+            } else {
+                context.JSON(http.StatusOK, map[string]string{
+                    "code":consts.SUCCESS,
+                    "message":"更新成功",
+                })
+            }
         } else {
             // 新增文章
             ok := service.Post.AddPost(
@@ -56,12 +69,12 @@ func (post *postController) save(context *gin.Context)  {
 
             if ok {
                 context.JSON(http.StatusOK, map[string]string {
-                    "code":"success",
+                    "code":consts.SUCCESS,
                     "message":"成功",
                 })
             } else {
                 context.JSON(http.StatusOK, map[string]string{
-                    "code":"error",
+                    "code":consts.ERROR,
                     "message":"失败",
                 })
             }
@@ -70,7 +83,7 @@ func (post *postController) save(context *gin.Context)  {
         postId, _ := context.GetQuery("post_id")
         postToken, _ := session.GenerateSessionToken(context, service.POST_TOKEN_KEY)
         if postId != "" {
-            post := service.Post.FindPostById(postId)
+            post, _ := service.Post.FindPostById(postId)
             // 显示操作页面
             context.HTML(http.StatusOK, "post/save.html", gin.H{
                 "pageTitle": "文章修改",

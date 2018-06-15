@@ -1,7 +1,10 @@
 package model
 
 import "time"
-import "github.com/dazhenghu/ginApp/model"
+import (
+    "github.com/dazhenghu/ginApp/model"
+    "errors"
+)
 
 const (
     POST_STATUS_EXAMING int64 = 0 // 审核中
@@ -11,7 +14,7 @@ const (
 
 type Post struct {
     model.BaseModel
-    PostId int64 `gorm:"column:post_id" json:"post_id" form:"post_id"`
+    PostId int64 `gorm:"primary_key;column:post_id" json:"post_id" form:"post_id"`
     PostTitle string `gorm:"column:post_title" json:"post_title" form:"post_title"`
     PostKey string `gorm:"column:post_key" json:"post_key" form:"post_key"`
     PostContent string `gorm:"column:post_content" json:"post_content" form:"post_content"`
@@ -25,4 +28,11 @@ type Post struct {
     PostUpdateUserName string `gorm:"column:post_update_user_name" json:"post_update_user_name" form:"post_update_user_name"`
     PostCreateAt time.Time `gorm:"column:post_create_at" json:"post_create_at" form:"post_create_at"`
     PostUpdateAt time.Time `gorm:"column:post_update_at" json:"post_update_at" form:"post_update_at"`
+}
+
+func (p *Post) IsValid() (err error) {
+    if p.PostTitle == "" {
+        err = errors.New("标题不能为空")
+    }
+    return
 }

@@ -2,6 +2,7 @@ package service
 
 import (
     "github.com/dazhenghu/ginCms/common/model"
+    "github.com/gin-gonic/gin"
 )
 
 const POST_TOKEN_KEY string = "post_token_key" // 添加post时保存在session中的token键名
@@ -17,11 +18,32 @@ func init()  {
 }
 
 /**
+更新文章
+ */
+func (p *post) UpdateFromForm(context *gin.Context) (err error) {
+    post, err := p.FindPostById(context.PostForm("post_id"))
+    post.PostTitle = context.PostForm("post_title")
+    post.PostKey = context.PostForm("post_key")
+    post.PostContent = context.PostForm("post_content")
+
+    err = db.Save(post).Error
+    return
+}
+
+/**
 根据postid获取文章信息
  */
-func (p *post) FindPostById(postId string) (post *model.Post) {
+func (p *post) FindPostById(postId string) (post *model.Post, err error) {
     post = &model.Post{}
-    db.Where("post_id = ?", postId).Find(post)
+    err = db.Where("post_id = ?", postId).Find(post).Error
+    return
+}
+
+/**
+更新数据
+ */
+func (p *post) UpdatePost(post *model.Post) (err error) {
+    err = db.Save(post).Update().Error
     return
 }
 
