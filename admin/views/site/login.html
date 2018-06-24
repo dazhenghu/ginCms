@@ -28,7 +28,7 @@
 <div>
     <!-- Main content -->
     <section class="content">
-        <form action="/site/login" method="post">
+        <form action="" method="post">
             <input type="hidden" name="token" value="{{ .token }}">
 
             <div class="row">
@@ -41,7 +41,7 @@
                         <span class="input-group-addon">密码</span>
                         <input class="form-control" type="text" name="password" placeholder="请输入密码">
                     </div>
-                    <button class="btn btn-primary" type="submit">提交</button>
+                    <button id="login-btn" class="btn btn-primary" type="button">提交</button>
                 </div>
             </div>
         </form>
@@ -55,6 +55,25 @@
 <script src="/public/libs/toast/js/bootoast.js"></script>
 
 <script src="/public/admin/js/common.js"></script>
+
+<script type="text/javascript">
+    $('#login-btn').click(function () {
+        var account = $("input[name='account']").val();
+        var pwd = $("input[name='password']").val();
+
+        if (account == '') {
+            toastWarning('请输入账号');
+            return;
+        }
+
+        if (pwd == '') {
+            toastWarning('请输入密码');
+            return;
+        }
+
+        login(account, pwd);
+    })
+</script>
 
 </body>
 </html>

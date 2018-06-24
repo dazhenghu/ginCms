@@ -62,7 +62,11 @@ func (site *siteController) Login(context *gin.Context)  {
         }
 
         redirectUrl := site.redirectUrl(context);
-        context.Redirect(http.StatusFound, redirectUrl)
+        context.JSON(http.StatusOK, map[string]string {
+            "code":consts.SUCCESS,
+            "message":"登录成功",
+            "redirect":redirectUrl,
+        })
         return
     }
 }
