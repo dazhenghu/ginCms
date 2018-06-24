@@ -1,0 +1,73 @@
+{{define "site/register.html"}}
+{{template "common/header-top.html" .}}
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<!-- Tell the browser to be responsive to screen width -->
+
+<meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+<!-- Bootstrap 3.3.7 -->
+<link rel="stylesheet" href="/public/libs/bootstrap/css/bootstrap.min.css">
+<!-- Font Awesome -->
+<link rel="stylesheet" href="/public/libs/font-awesome/css/font-awesome.min.css">
+<!-- Ionicons -->
+<link rel="stylesheet" href="/public/libs/Ionicons/css/ionicons.min.css">
+
+<link rel="stylesheet" href="/public/libs/toast/css/bootoast.css">
+
+<link rel="stylesheet" href="/public/admin/css/common.css">
+
+<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+<!--[if lt IE 9]>
+<script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+<script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+<![endif]-->
+</head>
+<body>
+
+<div>
+    <!-- Main content -->
+    <section class="content">
+        <form action="/site/register" method="post">
+            <input type="hidden" name="token" value="{{ .token }}">
+
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="input-group">
+                        <span class="input-group-addon">账号</span>
+                        <input class="form-control" type="text" name="user_name" placeholder="请输入账号">
+                    </div>
+                    <div class="input-group">
+                        <span class="input-group-addon">密码</span>
+                        <input class="form-control" type="text" name="user_password" placeholder="请输入密码">
+                    </div>
+                    <div class="input-group">
+                        <span class="input-group-addon">确认密码</span>
+                        <input class="form-control" type="text" name="user_password_confirm" placeholder="请重新输入密码">
+                    </div>
+                    <div class="input-group">
+                        <span class="input-group-addon">昵称</span>
+                        <input class="form-control" type="text" name="alias_name" placeholder="请输入昵称">
+                    </div>
+                    <div class="input-group">
+                        <span class="input-group-addon">邮箱</span>
+                        <input class="form-control" type="text" name="mail" placeholder="请输入邮箱">
+                    </div>
+                    <button class="btn btn-primary" type="submit">提交</button>
+                </div>
+            </div>
+        </form>
+    </section>
+</div>
+<!-- jQuery 3 -->
+<script src="/public/libs/jquery/jquery.min.js"></script>
+<!-- Bootstrap 3.3.7 -->
+<script src="/public/libs/bootstrap/js/bootstrap.min.js"></script>
+
+<script src="/public/libs/toast/js/bootoast.js"></script>
+
+<script src="/public/admin/js/common.js"></script>
+
+</body>
+</html>
+{{end}}}

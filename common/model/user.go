@@ -75,7 +75,7 @@ func (u *User) checkName() (err error) {
 func (u *User) checkPassword() (err error) {
     pswLen := len(u.UserPassword)
     if !(pswLen > 7 && pswLen < 21) {
-        err = errors.New("用户名长度必须是8到20位")
+        err = errors.New("密码长度必须是8到20位")
         return
     }
 

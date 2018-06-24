@@ -36,16 +36,16 @@ func (post *postController) save(context *gin.Context)  {
         postId := context.PostForm("post_id")
         token := context.PostForm("token")
         sessions.Default(context)
-        tokenErr := session.CheckSessionToken(context, service.POST_TOKEN_KEY, token)
+        tokenErr := session.CheckSessionToken(context, consts.SESSION_KEY_POST_TOKEN, token)
         if tokenErr != nil {
             context.JSON(http.StatusOK, map[string]string {
-                "code":"error",
+                "code":consts.ERROR,
                 "message":"令牌已过期，请刷新重试",
             })
             return
         }
 
-        postToken, _ := session.GenerateSessionToken(context, service.POST_TOKEN_KEY)
+        postToken, _ := session.GenerateSessionToken(context, consts.SESSION_KEY_POST_TOKEN)
 
         if postId != "" {
             // 更新文章
@@ -87,7 +87,7 @@ func (post *postController) save(context *gin.Context)  {
         }
     } else {
         postId, _ := context.GetQuery("post_id")
-        postToken, _ := session.GenerateSessionToken(context, service.POST_TOKEN_KEY)
+        postToken, _ := session.GenerateSessionToken(context, consts.SESSION_KEY_POST_TOKEN)
         if postId != "" {
             post, _ := service.Post.FindPostById(postId)
             // 显示操作页面
