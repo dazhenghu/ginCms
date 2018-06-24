@@ -73,3 +73,28 @@
 .vertical-middle {
     vertical-align: middle !important;
 }
+
+.login-div{
+    width: 100%;
+    top: 50%;
+    position: absolute;
+    margin-top: -100px;
+}
+.login-div .input-group {
+    margin-bottom: 15px;
+}
+.login-div .input-div {
+    padding: 0px 60px;
+    text-align: center;
+}
+.logo-title {
+    font-size: 30px;
+    font-weight: bold;
+    margin-bottom: 20px;
+    display: inline-block;
+    text-shadow: 0px 0px 4px #eee;
+    color: #46486b;
+}
+.login-div .input-group {
+    margin-bottom: 15px;
+}

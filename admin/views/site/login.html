@@ -23,16 +23,16 @@
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 <![endif]-->
 </head>
-<body>
-
+<body style="background-image: url(/public/img/bg.png)">
 <div>
     <!-- Main content -->
     <section class="content">
         <form action="" method="post">
             <input type="hidden" name="token" value="{{ .token }}">
-
-            <div class="row">
-                <div class="col-md-4">
+            <div class="row login-div">
+                <div class="col-md-4"></div>
+                <div class="col-md-4 input-div">
+                    <span class="logo-title">GinCMS 登录</span>
                     <div class="input-group">
                         <span class="input-group-addon">账号</span>
                         <input class="form-control" type="text" name="account" placeholder="请输入用户名或邮箱">
@@ -41,8 +41,9 @@
                         <span class="input-group-addon">密码</span>
                         <input class="form-control" type="text" name="password" placeholder="请输入密码">
                     </div>
-                    <button id="login-btn" class="btn btn-primary" type="button">提交</button>
+                    <button id="login-btn" class="btn btn-primary pull-right" type="button">登录</button>
                 </div>
+                <div class="col-md-4"></div>
             </div>
         </form>
     </section>
