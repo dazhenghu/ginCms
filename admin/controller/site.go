@@ -10,6 +10,8 @@ import (
     "github.com/dazhenghu/ginCms/common/consts"
     adminConsts "github.com/dazhenghu/ginCms/admin/consts"
     "github.com/dazhenghu/ginCms/admin/util"
+    "github.com/dazhenghu/ginApp/identify"
+    "github.com/dazhenghu/ginApp/logs"
 )
 
 type siteController struct {
@@ -34,9 +36,12 @@ func (site *siteController) Login(context *gin.Context)  {
 
     if context.Request.Method == http.MethodGet {
         // get请求
+        captchaId := identify.New(context)
+        logs.Debug("captchaId:" + captchaId)
         context.HTML(http.StatusOK, "site/login.html", gin.H{
             "pageTitle": "登录",
             "token": token,
+            "captchaId": captchaId,
         })
     } else if context.Request.Method == http.MethodPost {
         // post请求登录
@@ -79,7 +84,7 @@ func (site *siteController) Register(context *gin.Context) {
     if context.Request.Method == http.MethodGet {
         // get请求
         context.HTML(http.StatusOK, "site/register.html", gin.H{
-            "pageTitle": "登录",
+            "pageTitle": "GinCMS 后台注册",
             "token": token,
         })
     } else if context.Request.Method == http.MethodPost {

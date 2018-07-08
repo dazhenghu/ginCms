@@ -39,9 +39,11 @@
                     </div>
                     <div class="input-group">
                         <span class="input-group-addon">密码</span>
-                        <input class="form-control" type="text" name="password" placeholder="请输入密码">
+                        <input class="form-control" type="password" name="password" placeholder="请输入密码">
                     </div>
+                    <p><img id=image src="/captcha/{{.captchaId}}.png" alt="Captcha image"></p>
                     <button id="login-btn" class="btn btn-primary pull-right" type="button">登录</button>
+                    <a class="btn btn-warning pull-right" href="/site/register" target="_blank" style="margin-right: 10px;">注册</a>
                 </div>
                 <div class="col-md-4"></div>
             </div>

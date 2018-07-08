@@ -23,8 +23,22 @@
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 <![endif]-->
 </head>
-<body>
+<body style="background-image: url(/public/img/bg.png)">
+<style>
+    .register-div .input-group {
+        width: 100%;
+        margin-bottom: 10px;
+    }
+    .register-div {
+        padding: 0px 30px 0px 50px;
+        top: 20%;
+        position: absolute;
+    }
+    .register-div .input-group-addon {
+        width: 82px;
+    }
 
+</style>
 <div>
     <!-- Main content -->
     <section class="content">
@@ -32,18 +46,18 @@
             <input type="hidden" name="token" value="{{ .token }}">
 
             <div class="row">
-                <div class="col-md-4">
+                <div class="col-md-4 register-div">
                     <div class="input-group">
                         <span class="input-group-addon">账号</span>
                         <input class="form-control" type="text" name="user_name" placeholder="请输入账号">
                     </div>
                     <div class="input-group">
                         <span class="input-group-addon">密码</span>
-                        <input class="form-control" type="text" name="user_password" placeholder="请输入密码">
+                        <input class="form-control" type="password" name="user_password" placeholder="请输入密码">
                     </div>
                     <div class="input-group">
                         <span class="input-group-addon">确认密码</span>
-                        <input class="form-control" type="text" name="user_password_confirm" placeholder="请重新输入密码">
+                        <input class="form-control" type="password" name="user_password_confirm" placeholder="请重新输入密码">
                     </div>
                     <div class="input-group">
                         <span class="input-group-addon">昵称</span>
@@ -53,7 +67,7 @@
                         <span class="input-group-addon">邮箱</span>
                         <input class="form-control" type="text" name="mail" placeholder="请输入邮箱">
                     </div>
-                    <button class="btn btn-primary" type="submit">提交</button>
+                    <button class="btn btn-primary pull-right" type="submit">提交</button>
                 </div>
             </div>
         </form>
