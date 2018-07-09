@@ -78,7 +78,7 @@
     width: 100%;
     top: 50%;
     position: absolute;
-    margin-top: -100px;
+    margin-top: -180px;
 }
 .login-div .input-group {
     margin-bottom: 15px;
@@ -86,6 +86,11 @@
 .login-div .input-div {
     padding: 0px 60px;
     text-align: center;
+}
+.login-div .input-div label {
+    padding-left: 5px;
+    padding-right: 5px;
+    color: #555;
 }
 .logo-title {
     font-size: 30px;
@@ -98,3 +103,12 @@
 .login-div .input-group {
     margin-bottom: 15px;
 }
+
+.captcha-input-div {
+    padding: 0px;
+}
+
+.captcha-img-div img {
+    width: 100%;
+}
+

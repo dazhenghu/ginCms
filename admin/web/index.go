@@ -6,6 +6,10 @@ import (
     "path"
     "path/filepath"
     "html/template"
+    "fmt"
+    "time"
+    "github.com/dazhenghu/ginApp/logs"
+    "os"
 )
 
 var App *ginApp.GinApp
@@ -22,8 +26,13 @@ func init()  {
     App.SetRootPath(currPath)
     // 读取默认位置的配置文件
     App.DefaultLoadConfig("")
+    fmt.Printf("app config:%+v\n", App.AppConfig)
     // 初始化session配置
-    App.InitSession()
+    sessionErr := App.InitSession()
+    fmt.Printf("session err:%+v\n", sessionErr)
+
+    // 初始化验证码模块，过期时间为10分钟
+    App.InitIdentify(10 * time.Minute, 10 * time.Minute)
 
     // static参数：relativePath，表示模板中的设定的读取资源文件的路径;root，表示真实的静态文件物理路径。
     // 相当于url中relativePath映射到root
@@ -37,4 +46,8 @@ func init()  {
         },
     })
     App.Engine().LoadHTMLGlob(htmlDir)
+
+    // 日志模块初始化
+    logs.SetOutput(os.Stdout)
+    logs.SetLevel(logs.DebugLevel)
 }

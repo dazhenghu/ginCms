@@ -27,6 +27,8 @@ func (cc *captchaController) captchaCreate(context *gin.Context) {
     // 生成验证码信息
     captcha := identify.CaptchaNew(240, 80)
     err := captcha.Handle(context)
-    logs.Error(fmt.Sprintf("captcha err:%+v\n", err))
+    if err != nil {
+        logs.Error(fmt.Sprintf("captcha err:%+v\n", err))
+    }
     return
 }

@@ -114,13 +114,16 @@ function postFile2Server(url, data, success_func) {
     });
 }
 
-function login(account, pwd) {
-    post2Server("/site/login", {account: account, password: pwd}, function (data) {
+function login(account, pwd, captchaId, captcha, callback) {
+    post2Server("/site/login", {account: account, password: pwd, captchaId: captchaId, captcha: captcha}, function (data) {
         if (data.code == 'success') {
-            toastInfo(data.message)
-            window.location.href = data.redirect
+            toastInfo(data.message);
+            window.location.href = data.redirect;
         } else {
-            toastWarning(data.message)
+            toastWarning(data.message);
+            if (callback) {
+                callback(data);
+            }
         }
     })
 }

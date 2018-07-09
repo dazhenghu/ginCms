@@ -27,23 +27,39 @@
 <div>
     <!-- Main content -->
     <section class="content">
-        <form action="" method="post">
+        <form action="" method="post" role="form" class="form-horizontal">
             <input type="hidden" name="token" value="{{ .token }}">
             <div class="row login-div">
-                <div class="col-md-4"></div>
+                <div class="col-md-4">
+                </div>
                 <div class="col-md-4 input-div">
                     <span class="logo-title">GinCMS 登录</span>
-                    <div class="input-group">
-                        <span class="input-group-addon">账号</span>
-                        <input class="form-control" type="text" name="account" placeholder="请输入用户名或邮箱">
+                    <div class="form-group">
+                        <label for="account" class="col-sm-2 control-label">账号</label>
+                        <div class="col-sm-10">
+                            <input class="form-control" type="text" id="account" name="account" placeholder="请输入用户名或邮箱">
+                        </div>
                     </div>
-                    <div class="input-group">
-                        <span class="input-group-addon">密码</span>
-                        <input class="form-control" type="password" name="password" placeholder="请输入密码">
+                    <div class="form-group">
+                        <label for="password" class="col-sm-2 control-label">密码</label>
+                        <div class="col-sm-10">
+                            <input class="form-control" type="password" id="password" name="password" placeholder="请输入密码">
+                        </div>
                     </div>
-                    <p><img id=image src="/captcha/{{.captchaId}}.png" alt="Captcha image"></p>
-                    <button id="login-btn" class="btn btn-primary pull-right" type="button">登录</button>
-                    <a class="btn btn-warning pull-right" href="/site/register" target="_blank" style="margin-right: 10px;">注册</a>
+                    <div class="form-group">
+                        <label for="captcha" class="col-sm-2 control-label">验证码</label>
+                        <div class="col-sm-10">
+                            <input class="form-control" type="text" id="captcha" name="captcha" placeholder="请输入验证码">
+                        </div>
+                    </div>
+                    <div class="col-md-5 captcha-img-div">
+                        <input type="hidden" name="captchaId" value="{{.captchaId}}">
+                        <img id="captcha-image" src="/captcha/{{.captchaId}}.png" alt="Captcha image">
+                    </div>
+                    <div class="col-md-7 captcha-input-div">
+                        <button id="login-btn" class="btn btn-primary pull-right" type="button">登录</button>
+                        <a class="btn btn-warning pull-right" href="/site/register" target="_blank" style="margin-right: 10px;">注册</a>
+                    </div>
                 </div>
                 <div class="col-md-4"></div>
             </div>
@@ -62,7 +78,9 @@
 <script type="text/javascript">
     $('#login-btn').click(function () {
         var account = $("input[name='account']").val();
-        var pwd = $("input[name='password']").val();
+        var pwd     = $("input[name='password']").val();
+        var captcha = $("input[name='captcha']").val();
+        var captchaId = $("input[name='captchaId']").val();
 
         if (account == '') {
             toastWarning('请输入账号');
@@ -74,7 +92,18 @@
             return;
         }
 
-        login(account, pwd);
+        if (captcha == '') {
+            toastWarning('请输入验证码');
+            return;
+        }
+
+        login(account, pwd, captchaId, captcha, function (data) {
+            if (data.code == 'error') {
+                var captchaId = data.captchaId;
+                $("input[name='captchaId']").val(captchaId);
+                $("#captcha-image").attr("src", "/captcha/"+captchaId+".png");
+            }
+        });
     })
 </script>
 

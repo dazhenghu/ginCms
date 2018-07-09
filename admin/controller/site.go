@@ -12,6 +12,7 @@ import (
     "github.com/dazhenghu/ginCms/admin/util"
     "github.com/dazhenghu/ginApp/identify"
     "github.com/dazhenghu/ginApp/logs"
+    "github.com/dazhenghu/util/stringutil"
 )
 
 type siteController struct {
@@ -55,13 +56,38 @@ func (site *siteController) Login(context *gin.Context)  {
             return
         }
 
+        captchaId := context.PostForm("captchaId")
+        captcha   := context.PostForm("captcha");
+        if stringutil.IsEmpty(captcha) || stringutil.IsEmpty(captchaId) {
+            captchaId = identify.New(context) // 验证码刷新
+            context.JSON(http.StatusOK, map[string]string {
+                "code":consts.ERROR,
+                "message":"请输入验证码",
+                "captchaId": captchaId,
+            })
+            return
+        }
+
+        verifyValid := identify.VerifyString(captchaId, captcha, context)
+        if !verifyValid {
+            captchaId = identify.New(context) // 验证码刷新
+            context.JSON(http.StatusOK, map[string]string {
+                "code":consts.ERROR,
+                "message":"验证码无效，或已过期，请重新尝试",
+                "captchaId": captchaId,
+            })
+            return
+        }
+
         account := context.PostForm("account")
         password := context.PostForm("password")
         _, err := service.User.LoginWithSession(account, password, context)
         if err != nil {
+            captchaId = identify.New(context) // 验证码刷新
             context.JSON(http.StatusOK, map[string]string {
                 "code":consts.ERROR,
                 "message":"登录失败，" + err.Error(),
+                "captchaId": captchaId,
             })
             return
         }
