@@ -1,0 +1,51 @@
+{{define "postcate/save.html"}}
+{{template "common/frame-top.html" .}}
+<!-- Main content -->
+<section class="content">
+    <form id="post-save" action="" method="post">
+        <div class="row">
+            <div class="col-md-8 col-sm-12 col-xs-12">
+                <div class="form-group form-group-space">
+                    <input type="hidden" name="token" value="{{ .token }}">
+                    <input type="hidden" name="post_cate_id" value="{{ .postcate.PostCateId }}">
+                    <input class="form-control" type="text" name="post_cate_name" placeholder="类别名称" value="{{ .postcate.PostCateName }}">
+
+                    <input class="form-control" type="text" name="post_cate_des" placeholder="类别描述" value="{{ .postcate.PostCateDes }}">
+                </div>
+                <div class="form-group">
+                    <button id="submit" class="btn btn-primary pull-right" type="button">提交</button>
+                </div>
+            </div>
+        </div>
+    </form>
+</section><!-- 配置文件 -->
+
+{{template "common/frame-bottom.html"}}
+<script type="text/javascript">
+    $("#submit").click(function () {
+        var data = {};
+        data.post_cate_id = $("input[name='post_cate_id']").val();
+        data.post_cate_name = $("input[name='post_cate_name']").val();
+        data.post_cate_des = $("input[name='post_cate_des']").val();
+        data.token = $("input[name='token']").val();
+        if (!data.post_cate_name) {
+            toastWarning("类别名称不能为空");
+            return;
+        }
+
+        $('.loading-modal').modal('show');
+        $.post("/postcate/save", data, function (res) {
+            $('.loading-modal').modal('hide');
+            $("input[name='token']").val(res.token);
+            if (res.code == "success") {
+                toastInfo(res.message);
+                location.reload();
+            } else {
+                toastWarning(res.message);
+            }
+
+        });
+    })
+</script>
+{{template "common/frame-end.html"}}
+{{end}}}

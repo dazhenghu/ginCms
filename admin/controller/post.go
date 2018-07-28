@@ -26,8 +26,13 @@ func init()  {
 }
 
 func (post *postController) index(context *gin.Context)  {
+    cateId := context.GetInt("cate_id")
+
+    postList := service.Post.GetPostList(cateId);
+
     context.HTML(http.StatusOK, "post/index.html", gin.H{
         "pageTitle": "文章列表",
+        "postList": postList,
     })
 }
 

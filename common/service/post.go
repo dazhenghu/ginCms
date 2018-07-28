@@ -3,6 +3,7 @@ package service
 import (
     "github.com/dazhenghu/ginCms/common/model"
     "github.com/gin-gonic/gin"
+    "time"
 )
 
 type post struct {
@@ -64,3 +65,54 @@ func (p *post) AddPost(postTitle, postKey, postContent string) bool {
     return db.NewRecord(postObj)
 }
 
+/**
+按分类查找文章
+ */
+func (p *post) GetPostList(cateId int) (list []model.Post) {
+    if cateId < 1 {
+        db.Find(&list)
+    } else {
+        db.Joins("inner join post on post_id=post_cate_post_post_id").Where("post_cate_post_post_cate_id = ?", cateId).Find(&list)
+    }
+    return
+}
+
+/**
+获取分类列表
+ */
+func (p *post) GetCateList() (cates []model.PostCate)  {
+    db.Find(&cates)
+    return
+}
+
+func (p *post) FindCate(cateId string) (cate *model.PostCate, err error)  {
+    cate = &model.PostCate{}
+    err = db.Where("post_cate_id = ?", cateId).Find(cate).Error
+    return
+}
+
+/**
+添加分类
+ */
+func (p *post) AddPostCate(context *gin.Context) bool {
+    postcateObj := &model.PostCate{}
+    postcateObj.PostCateName = context.PostForm("post_cate_name")
+    postcateObj.PostCateDes = context.PostForm("post_cate_des")
+    postcateObj.PostCateCreateAt = time.Now()
+
+    db.Create(postcateObj)
+    return db.NewRecord(postcateObj)
+}
+
+/**
+更新类别
+ */
+func (p *post) UpdatePostCate(context *gin.Context) (err error) {
+    postcate, err := p.FindCate(context.PostForm("post_cate_id"))
+    postcate.PostCateName = context.PostForm("post_cate_name")
+    postcate.PostCateDes = context.PostForm("post_cate_des")
+    postcate.PostCateUpdateAt = time.Now()
+
+    err = db.Save(postcate).Error
+    return
+}
