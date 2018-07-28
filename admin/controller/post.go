@@ -8,6 +8,7 @@ import (
     "github.com/dazhenghu/ginApp/session"
     "github.com/gin-contrib/sessions"
     "github.com/dazhenghu/ginCms/common/consts"
+    "strconv"
 )
 
 type postController struct {
@@ -26,13 +27,16 @@ func init()  {
 }
 
 func (post *postController) index(context *gin.Context)  {
-    cateId := context.GetInt("cate_id")
-
+    cateIdquery,_ := context.GetQuery("post_cate_id")
+    cateId, _ := strconv.Atoi(cateIdquery)
     postList := service.Post.GetPostList(cateId);
 
+    postcateList := service.Post.GetCateList()
     context.HTML(http.StatusOK, "post/index.html", gin.H{
         "pageTitle": "文章列表",
         "postList": postList,
+        "postcateList": postcateList,
+        "postCateIdQuery": cateId,
     })
 }
 
@@ -70,11 +74,7 @@ func (post *postController) save(context *gin.Context)  {
             }
         } else {
             // 新增文章
-            ok := service.Post.AddPost(
-                context.PostForm("post_title"),
-                context.PostForm("post_key"),
-                context.PostForm("post_content"),
-            )
+            ok := service.Post.AddPost(context)
 
             if ok {
                 context.JSON(http.StatusOK, map[string]string {
@@ -93,18 +93,23 @@ func (post *postController) save(context *gin.Context)  {
     } else {
         postId, _ := context.GetQuery("post_id")
         postToken, _ := session.GenerateSessionToken(context, consts.SESSION_KEY_POST_TOKEN)
+        postcateList := service.Post.GetCateList()
         if postId != "" {
             post, _ := service.Post.FindPostById(postId)
+            postcate, _ := service.Post.FindThePostCate(postId)
             // 显示操作页面
             context.HTML(http.StatusOK, "post/save.html", gin.H{
                 "pageTitle": "文章修改",
                 "post":post,
+                "postcateList":postcateList,
                 "token": postToken,
+                "postcate": postcate,
             })
             return
         }
         context.HTML(http.StatusOK, "post/save.html", gin.H{
             "pageTitle": "文章添加",
+            "postcateList":postcateList,
             "token": postToken,
         })
     }

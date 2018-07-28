@@ -22,7 +22,9 @@
                 <tbody>
                     {{range .cateList}}
                     <tr>
-                        <td>{{.PostCateId}}</td>
+                        <td>
+                            <a href="/postcate/save?post_cate_id={{.PostCateId}}" target="_blank">{{.PostCateId}}</a>
+                        </td>
                         <td>{{.PostCateName}}</td>
                         <td>{{.PostCateDes}}</td>
                         <td>{{.PostCateCreateAt}}</td>

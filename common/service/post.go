@@ -4,6 +4,8 @@ import (
     "github.com/dazhenghu/ginCms/common/model"
     "github.com/gin-gonic/gin"
     "time"
+    "github.com/jinzhu/gorm"
+    "strconv"
 )
 
 type post struct {
@@ -25,7 +27,31 @@ func (p *post) UpdateFromForm(context *gin.Context) (err error) {
     post.PostKey = context.PostForm("post_key")
     post.PostContent = context.PostForm("post_content")
 
-    err = db.Save(post).Error
+    postcate, err := p.FindCate(context.PostForm("post_cate_id"))
+
+    tx := db.Begin()
+    defer func(txDo *gorm.DB) {
+        rec := recover()
+        if rec != nil {
+            txDo.Rollback()
+        }
+    }(tx)
+
+    err = tx.Save(post).Error
+    tx.Where("post_cate_post_post_id = ?", post.PostId).Delete(model.PostCatePost{})
+    // 生成文章与分类的对应关系
+    postcatePost := &model.PostCatePost{}
+    postcatePost.PostCatePostPostId = post.PostId
+    postcatePost.PostCatePostPostCateId = postcate.PostCateId
+    postcatePost.PostCatePostCreateAt = time.Now()
+    postcatePost.PostCatePostUpdateAt = time.Now()
+
+    tx.Create(postcatePost)
+    tx.NewRecord(postcatePost)
+
+    err = tx.Save(post).Error
+    tx.Commit()
+
     return
 }
 
@@ -49,11 +75,11 @@ func (p *post) UpdatePost(post *model.Post) (err error) {
 /**
 增加文章
  */
-func (p *post) AddPost(postTitle, postKey, postContent string) bool {
+func (p *post) AddPost(context *gin.Context) (res bool) {
     postObj := &model.Post{}
-    postObj.PostTitle = postTitle
-    postObj.PostKey = postKey
-    postObj.PostContent = postContent
+    postObj.PostTitle = context.PostForm("post_title")
+    postObj.PostKey = context.PostForm("post_key")
+    postObj.PostContent = context.PostForm("post_content")
     postObj.PostStatus = model.POST_STATUS_PASS
     postObj.PostShowTimes = 1
     postObj.PostLikeTimes = 0
@@ -61,18 +87,38 @@ func (p *post) AddPost(postTitle, postKey, postContent string) bool {
     postObj.PostCreateUserName = ""
     postObj.PostUpdateUserId = 0
     postObj.PostUpdateUserName = ""
-    db.Create(postObj)
-    return db.NewRecord(postObj)
+
+    tx := db.Begin()
+    defer func(txDo *gorm.DB) {
+        rec := recover()
+        if rec != nil {
+            txDo.Rollback()
+        }
+    }(tx)
+
+    tx.Create(postObj)
+    tx.NewRecord(postObj)
+
+    postcateId, _ := strconv.Atoi(context.PostForm("post_cate_id"))
+    // 生成文章与分类的对应关系
+    postcatePost := &model.PostCatePost{}
+    postcatePost.PostCatePostPostId = postObj.PostId
+    postcatePost.PostCatePostPostCateId = int64(postcateId)
+    postcatePost.PostCatePostCreateAt = time.Now()
+    postcatePost.PostCatePostUpdateAt = time.Now()
+
+    tx.Commit()
+    return
 }
 
 /**
 按分类查找文章
  */
-func (p *post) GetPostList(cateId int) (list []model.Post) {
+func (p *post) GetPostList(cateId int) (list []*model.Post) {
     if cateId < 1 {
         db.Find(&list)
     } else {
-        db.Joins("inner join post on post_id=post_cate_post_post_id").Where("post_cate_post_post_cate_id = ?", cateId).Find(&list)
+        db.Joins("inner join post_cate_post on post_id=post_cate_post_post_id").Where("post_cate_post_post_cate_id = ?", cateId).Find(&list)
     }
     return
 }
@@ -80,7 +126,8 @@ func (p *post) GetPostList(cateId int) (list []model.Post) {
 /**
 获取分类列表
  */
-func (p *post) GetCateList() (cates []model.PostCate)  {
+func (p *post) GetCateList() (cates []*model.PostCate)  {
+    //cates = make([]model.PostCate, 0, 0)
     db.Find(&cates)
     return
 }
@@ -114,5 +161,14 @@ func (p *post) UpdatePostCate(context *gin.Context) (err error) {
     postcate.PostCateUpdateAt = time.Now()
 
     err = db.Save(postcate).Error
+    return
+}
+
+/**
+查找文章的分类信息
+ */
+func (p *post) FindThePostCate(postid string) (postcate *model.PostCate, err error) {
+    postcate = &model.PostCate{}
+    err = db.Joins("inner join post_cate_post on post_cate_id=post_cate_post_post_cate_id").Where("post_cate_post_post_id = ?", postid).Find(postcate).Error
     return
 }

@@ -2,13 +2,54 @@
 {{template "common/frame-top.html" .}}
 <!-- Main content -->
 <section class="content">
-    <form action="/post/save" method="post">
-        <div class="row">
+    <form action="/post" method="get">
+        <div class="row mb-15">
             <div class="col-md-12 col-sm-12 col-xs-12">
-                <input class="form-control" type="text" name="post_title" placeholder="标题">
+                {{.postCateId}}
+
+                <select name="post_cate_id" class="form-inline form-control" style="width: 150px;">
+                    <option value="">请选择分类</option>
+                    {{range .postcateList}}
+                        <option value="{{.PostCateId}}" {{if eq $.postCateIdQuery .PostCateId}}selected{{end}}>{{.PostCateName}}</option>
+                    {{end}}
+                </select>
+            </div>
+        </div>
+        <div class="row mb-15">
+            <div class="col-md-12 col-sm-12 col-xs-12">
+                <button type="submit" class="btn btn-primary">查询</button>
+                <a class="btn btn-primary" href="/post/save" target="_blank">添加文章分类</a>
             </div>
         </div>
     </form>
+    <div class="row mb-15">
+        <div class="col-md-12 col-sm-12 col-xs-12">
+            <table class="table table-bordered table-responsive">
+                <thead>
+                <tr>
+                    <th>id</th>
+                    <th>标题</th>
+                    <th>关键字</th>
+                    <th>创建时间</th>
+                    <th>更新时间</th>
+                </tr>
+                </thead>
+                <tbody>
+                {{range .postList}}
+                <tr>
+                    <td>
+                        <a href="/post/save?post_id={{.PostId}}" target="_blank">{{.PostId}}</a>
+                    </td>
+                    <td>{{.PostTitle}}</td>
+                    <td>{{.PostKey}}</td>
+                    <td>{{.PostCreateAt}}</td>
+                    <td>{{.PostUpdateAt}}</td>
+                </tr>
+                {{end}}
+                </tbody>
+            </table>
+        </div>
+    </div>
 </section>
 {{template "common/frame-bottom.html"}}
 {{end}}}
