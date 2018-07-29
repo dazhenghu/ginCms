@@ -2,6 +2,7 @@ dbindex: ""
 up:
   - CREATE TABLE `menu` (
       `menu_id` int(11) NOT NULL AUTO_INCREMENT,
+      `menu_type` varchar(32) NOT NULL DEFAULT '' COMMENT '菜单类别,front:前台;backend:后台',
       `menu_name` varchar(128) NOT NULL COMMENT '菜单名',
       `menu_parent_id` int(11) NOT NULL DEFAULT '0' COMMENT '菜单父级菜单',
       `menu_route` varchar(256) NOT NULL DEFAULT '' COMMENT '路由',

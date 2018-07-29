@@ -7,15 +7,15 @@ up:
       `post_content` text COMMENT '文章正文',
       `post_status` tinyint(3) NOT NULL DEFAULT '0' COMMENT '0:审核中；1:审核通过；2:审核拒绝',
       `post_status_des` varchar(64) NOT NULL DEFAULT '' COMMENT '状态描述',
-      `post_show_times` int(11) unsigned NOT NULL DEFAULT 1 COMMENT '文章显示次数',
-      `post_like_times` int(11) unsigned NOT NULL DEFAULT 0 COMMENT '文章点赞次数',
+      `post_show_times` int(11) unsigned NOT NULL DEFAULT '1' COMMENT '文章显示次数',
+      `post_like_times` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '文章点赞次数',
       `post_create_user_id` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '创建者id',
       `post_create_user_name` varchar(64) NOT NULL DEFAULT '' COMMENT '创建者姓名',
       `post_update_user_id` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '更新者id',
       `post_update_user_name` varchar(64) NOT NULL DEFAULT '' COMMENT '更新者姓名',
       `post_create_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
       `post_update_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '修改时间',
-      `delete_at` datetime DEFAULT NULL COMMENT '删除时间',
+      `deleted_at` datetime DEFAULT NULL COMMENT '删除时间',
       PRIMARY KEY (`post_id`),
       KEY `idx_create_at` (`post_create_at`)
     ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='文章表';
