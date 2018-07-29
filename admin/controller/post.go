@@ -74,9 +74,8 @@ func (post *postController) save(context *gin.Context)  {
             }
         } else {
             // 新增文章
-            ok := service.Post.AddPost(context)
-
-            if ok {
+            err := service.Post.AddPost(context)
+            if err == nil {
                 context.JSON(http.StatusOK, map[string]string {
                     "code":consts.SUCCESS,
                     "message":"成功",

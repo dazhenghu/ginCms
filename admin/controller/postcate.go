@@ -51,7 +51,7 @@ func (pc *postcateController) save(context *gin.Context) {
 
         token, _ = session.GenerateSessionToken(context, consts.SESSION_KEY_POST_TOKEN)
 
-        if postcateId != "0" {
+        if postcateId != "" {
             // 更新文章
             updateErr := service.Post.UpdatePostCate(context)
             if updateErr != nil {

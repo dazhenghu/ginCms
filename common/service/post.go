@@ -75,7 +75,7 @@ func (p *post) UpdatePost(post *model.Post) (err error) {
 /**
 增加文章
  */
-func (p *post) AddPost(context *gin.Context) (res bool) {
+func (p *post) AddPost(context *gin.Context) (err error) {
     postObj := &model.Post{}
     postObj.PostTitle = context.PostForm("post_title")
     postObj.PostKey = context.PostForm("post_key")
@@ -96,8 +96,10 @@ func (p *post) AddPost(context *gin.Context) (res bool) {
         }
     }(tx)
 
-    tx.Create(postObj)
-    tx.NewRecord(postObj)
+    err = tx.Create(postObj).Error
+    if err != nil {
+        panic(err)
+    }
 
     postcateId, _ := strconv.Atoi(context.PostForm("post_cate_id"))
     // 生成文章与分类的对应关系
@@ -106,6 +108,11 @@ func (p *post) AddPost(context *gin.Context) (res bool) {
     postcatePost.PostCatePostPostCateId = int64(postcateId)
     postcatePost.PostCatePostCreateAt = time.Now()
     postcatePost.PostCatePostUpdateAt = time.Now()
+
+    err = tx.Create(postcatePost).Error
+    if err != nil {
+        panic(err)
+    }
 
     tx.Commit()
     return

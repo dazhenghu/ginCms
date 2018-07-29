@@ -39,7 +39,7 @@
             $("input[name='token']").val(res.token);
             if (res.code == "success") {
                 toastInfo(res.message);
-                location.reload();
+                window.location.href=window.location.href;
             } else {
                 toastWarning(res.message);
             }

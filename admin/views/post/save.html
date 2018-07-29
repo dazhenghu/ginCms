@@ -11,7 +11,11 @@
                     <select name="post_cate_id" class="form-control">
                         <option value="">请选择分类</option>
                         {{range .postcateList}}
-                            <option value="{{.PostCateId}}" {{if eq $.postcate.PostCateId .PostCateId}}selected{{end}}>{{.PostCateName}}</option>
+                            {{if $.postcate}}
+                                <option value="{{.PostCateId}}" {{if eq $.postcate.PostCateId .PostCateId}}selected{{end}}>{{.PostCateName}}</option>
+                            {{else}}
+                                <option value="{{.PostCateId}}">{{.PostCateName}}</option>
+                            {{end}}
                         {{end}}
                     </select>
 
@@ -72,7 +76,8 @@
             $('.loading-modal').modal('hide');
             $("input[name='token']").val(res.token);
             if (res.code == "success") {
-                toastInfo(res.message)
+                toastInfo(res.message);
+                window.location.href=window.location.href;
             } else {
                 toastWarning(res.message)
             }
